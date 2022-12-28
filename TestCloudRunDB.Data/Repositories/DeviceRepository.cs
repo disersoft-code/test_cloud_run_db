@@ -45,7 +45,7 @@ namespace TestCloudRunDB.Data.Repositories
         {
             var connectionString = new MySqlConnectionStringBuilder()
             {
-                SslMode = MySqlSslMode.Disabled,
+                SslMode = MySqlSslMode.None,
                 Server = "/cloudsql/testcloudrun-372814:us-central1:quickstart-cloud-run-mysql-instance", // e.g. '/cloudsql/project:region:instance'
                 UserID = "quickstart-mysql-user",   // e.g. 'my-db-user
                 Password = "password", // e.g. 'my-db-password'
