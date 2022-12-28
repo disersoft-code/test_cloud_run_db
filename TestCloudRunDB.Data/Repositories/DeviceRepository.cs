@@ -39,7 +39,7 @@ namespace TestCloudRunDB.Data.Repositories
                 // secure - consider a more secure solution such as
                 // Cloud Secret Manager (https://cloud.google.com/secret-manager) to help
                 // keep secrets safe.
-                Server = "/cloudsql/testcloudrun-372814:us-central1:disersoft", // e.g. '/cloudsql/project:region:instance'
+                Server = "/cloudsql/testcloudrun-372814:us-central1:disersoft/.s.PGSQL.5432", // e.g. '/cloudsql/project:region:instance'
                 UserID = "root",   // e.g. 'my-db-user
                 Password = "Disersoft1*2040", // e.g. 'my-db-password'
                 Database = "dsfcontrol", // e.g. 'my-database'
