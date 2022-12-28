@@ -65,9 +65,17 @@ namespace TestCloudRunDB.Data.Repositories
 
         public Task<IEnumerable<Device>> GetAll()
         {
-            var db = dbConnection();
-            var sql = "Select DeviceId, DevicesUID, DeviceName, DeviceIP from Devices limit 10";
-            return db.QueryAsync<Device>(sql);
+            try
+            {
+                var db = dbConnection();
+                var sql = "Select DeviceId, DevicesUID, DeviceName, DeviceIP from Devices limit 10";
+                return db.QueryAsync<Device>(sql);
+            }
+            catch (Exception ex)
+            {
+                _log.LogError(ex, "Error exception");
+                throw;
+            }
 
 
         }
