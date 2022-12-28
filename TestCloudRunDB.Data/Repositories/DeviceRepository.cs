@@ -27,27 +27,17 @@ namespace TestCloudRunDB.Data.Repositories
 
         protected string NewMysqlUnixSocketConnectionString()
         {
-            // Equivalent connection string:
-            // "Server=<INSTANCE_UNIX_SOCKET>;Uid=<DB_USER>;Pwd=<DB_PASS>;Database=<DB_NAME>;Protocol=unix"
             var connectionString = new MySqlConnectionStringBuilder()
             {
-                // The Cloud SQL proxy provides encryption between the proxy and instance.
                 SslMode = MySqlSslMode.Disabled,
-                
-
-                // Note: Saving credentials in environment variables is convenient, but not
-                // secure - consider a more secure solution such as
-                // Cloud Secret Manager (https://cloud.google.com/secret-manager) to help
-                // keep secrets safe.
                 Server = "/cloudsql/testcloudrun-372814:us-central1:disersoft", // e.g. '/cloudsql/project:region:instance'
-                UserID = "root",   // e.g. 'my-db-user
+                UserID = "testuser",   // e.g. 'my-db-user
                 Password = "Disersoft1*2040", // e.g. 'my-db-password'
                 Database = "dsfcontrol", // e.g. 'my-database'
                 ConnectionProtocol = MySqlConnectionProtocol.UnixSocket
             };
             connectionString.Pooling = true;
             
-            // Specify additional properties here.
             return connectionString.ConnectionString;
         }
 
