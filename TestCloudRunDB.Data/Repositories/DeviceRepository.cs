@@ -19,7 +19,7 @@ namespace TestCloudRunDB.Data.Repositories
         protected MySqlConnection dbConnection()
         {
             var cnn = NewMysqlUnixSocketConnectionString_New();
-            _log.LogDebug("dbConnection:{dbConnection}", _mySQLConfiguration.ConnectionString);
+            //_log.LogDebug("dbConnection:{dbConnection}", _mySQLConfiguration.ConnectionString);
             _log.LogDebug("dbConnection:{dbConnection}", cnn);
             //return new MySqlConnection(_mySQLConfiguration.ConnectionString);
             return new MySqlConnection(cnn);
