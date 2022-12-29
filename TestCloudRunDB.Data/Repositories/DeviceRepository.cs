@@ -34,29 +34,16 @@ namespace TestCloudRunDB.Data.Repositories
                 UserID = "testuser",   // e.g. 'my-db-user
                 Password = "Disersoft1*2040", // e.g. 'my-db-password'
                 Database = "dsfcontrol", // e.g. 'my-database'
-                ConnectionProtocol = MySqlConnectionProtocol.UnixSocket
+                ConnectionProtocol = MySqlConnectionProtocol.UnixSocket,
+                Pooling = true,
+                ConnectionTimeout = 10,
+                ConnectionLifeTime = 1,
+                MaximumPoolSize = 1
             };
-            connectionString.Pooling = true;
+            
             
             return connectionString.ConnectionString;
         }
-
-        protected string NewMysqlUnixSocketConnectionString_New()
-        {
-            var connectionString = new MySqlConnectionStringBuilder()
-            {
-                SslMode = MySqlSslMode.None,
-                Server = "/cloudsql/testcloudrun-372814:us-central1:quickstart-cloud-run-mysql-instance", // e.g. '/cloudsql/project:region:instance'
-                UserID = "quickstart-mysql-user",   // e.g. 'my-db-user
-                Password = "password", // e.g. 'my-db-password'
-                Database = "quickstart-db", // e.g. 'my-database'
-                ConnectionProtocol = MySqlConnectionProtocol.UnixSocket
-            };
-            connectionString.Pooling = true;
-
-            return connectionString.ConnectionString;
-        }
-
 
         public Task<bool> Delete(int id)
         {
