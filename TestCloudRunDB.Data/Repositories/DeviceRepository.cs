@@ -77,8 +77,6 @@ namespace TestCloudRunDB.Data.Repositories
                 _log.LogError(ex, "Error exception");
                 throw;
             }
-
-
         }
 
         public Task<Device> GetById(int id)
