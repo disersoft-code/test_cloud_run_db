@@ -69,6 +69,7 @@ namespace TestCloudRunDB.Data.Repositories
             {
                 var db = dbConnection();
                 var sql = "Select DeviceId, DevicesUID, DeviceName, DeviceIP from Devices limit 10".ToLower();
+                _log.LogDebug("sql:{sql}", sql);
                 return db.QueryAsync<Device>(sql);
             }
             catch (Exception ex)
