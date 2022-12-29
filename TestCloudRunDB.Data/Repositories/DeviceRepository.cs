@@ -68,7 +68,7 @@ namespace TestCloudRunDB.Data.Repositories
             try
             {
                 var db = dbConnection();
-                var sql = "Select DeviceId, DevicesUID, DeviceName, DeviceIP from Devices limit 10";
+                var sql = "Select DeviceId, DevicesUID, DeviceName, DeviceIP from Devices limit 10".ToLower();
                 return db.QueryAsync<Device>(sql);
             }
             catch (Exception ex)
@@ -83,7 +83,7 @@ namespace TestCloudRunDB.Data.Repositories
         public Task<Device> GetById(int id)
         {
             var db = dbConnection();
-            var sql = "Select DeviceId, DevicesUID, DeviceName, DeviceIP from Devices Where DeviceId=@id ";
+            var sql = "Select DeviceId, DevicesUID, DeviceName, DeviceIP from Devices Where DeviceId=@id ".ToLower();
             return db.QueryFirstOrDefaultAsync<Device>(sql, new { id });
         }
 
