@@ -29,7 +29,7 @@ namespace TestCloudRunDB.Data.Repositories
         {
             var connectionString = new MySqlConnectionStringBuilder()
             {
-                SslMode = MySqlSslMode.Disabled,
+                SslMode = MySqlSslMode.None,
                 Server = "/cloudsql/testcloudrun-372814:us-central1:disersoft", // e.g. '/cloudsql/project:region:instance'
                 UserID = "testuser",   // e.g. 'my-db-user
                 Password = "Disersoft1*2040", // e.g. 'my-db-password'
