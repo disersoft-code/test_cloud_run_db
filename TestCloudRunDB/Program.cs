@@ -10,6 +10,13 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+var redisConn = $"{builder.Configuration.GetValue<string>("Redis:IP")}:{builder.Configuration.GetValue<int>("Redis:Port")},abortConnect=false";
+
+builder.Services.AddStackExchangeRedisCache(options =>
+{
+    options.Configuration = redisConn;
+});
+
 var mySQLConfiguration = new MySQLConfiguration(builder.Configuration.GetConnectionString("dsfcontrol"));
 builder.Services.AddSingleton(mySQLConfiguration);
 

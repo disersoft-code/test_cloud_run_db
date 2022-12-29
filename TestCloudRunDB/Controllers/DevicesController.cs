@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Caching.Distributed;
 using TestCloudRunDB.Data.Repositories;
+using TestCloudRunDB.Extensions;
 using TestCloudRunDB.Model;
 
 namespace TestCloudRunDB.Controllers
@@ -9,18 +11,39 @@ namespace TestCloudRunDB.Controllers
     public class DevicesController : ControllerBase
     {
         private readonly IDeviceRepository _deviceRepository;
+        private readonly IDistributedCache _cache;
+        private readonly ILogger<DevicesController> _log;
 
-        public DevicesController(IDeviceRepository deviceRepository)
+        public DevicesController(IDeviceRepository deviceRepository, IDistributedCache cache, ILogger<DevicesController> log)
         {
             _deviceRepository = deviceRepository;
+            _cache = cache;
+            _log = log;
         }
 
         // GET: api/<DevicesController>
         [HttpGet]
         public async Task<IActionResult> Get()
         {
-            return Ok(await _deviceRepository.GetAll());
-            
+            var cacheKey = "listDevices";
+            var listDevices = await _cache.GetRecordAsync<List<Device>>(cacheKey);
+
+            if (listDevices != null)
+            {
+                _log.LogDebug("********   data from cache.....");
+            }
+            else
+            {
+                _log.LogDebug("********   data from db.....");
+
+                var aux = await _deviceRepository.GetAll();
+                listDevices = aux.ToList();
+                await _cache.SetRecordAsync(cacheKey, listDevices, TimeSpan.FromMinutes(10), TimeSpan.FromMinutes(2));
+            }
+
+
+            return Ok(listDevices);
+
         }
 
         // GET api/<DevicesController>/5
@@ -34,7 +57,7 @@ namespace TestCloudRunDB.Controllers
         [HttpPost]
         public async Task<IActionResult> Post([FromBody] Device device)
         {
-            if (device == null )
+            if (device == null)
             {
                 return BadRequest();
             }
