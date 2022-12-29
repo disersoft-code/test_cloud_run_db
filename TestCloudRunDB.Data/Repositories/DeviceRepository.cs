@@ -79,6 +79,7 @@ namespace TestCloudRunDB.Data.Repositories
             }
         }
 
+
         public Task<Device> GetById(int id)
         {
             var db = dbConnection();
