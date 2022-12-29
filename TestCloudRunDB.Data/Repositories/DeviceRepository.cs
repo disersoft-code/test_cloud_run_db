@@ -18,32 +18,34 @@ namespace TestCloudRunDB.Data.Repositories
 
         protected MySqlConnection dbConnection()
         {
-            var cnn = NewMysqlUnixSocketConnectionString();
-            //_log.LogDebug("dbConnection:{dbConnection}", _mySQLConfiguration.ConnectionString);
-            _log.LogDebug("dbConnection:{dbConnection}", cnn);
-            //return new MySqlConnection(_mySQLConfiguration.ConnectionString);
-            return new MySqlConnection(cnn);
+            
+            _log.LogDebug("dbConnection:{dbConnection}", _mySQLConfiguration.ConnectionString);
+            return new MySqlConnection(_mySQLConfiguration.ConnectionString);
+
+            //var cnn = NewMysqlUnixSocketConnectionString();
+            //_log.LogDebug("dbConnection:{dbConnection}", cnn);
+            //return new MySqlConnection(cnn);
         }
 
-        protected string NewMysqlUnixSocketConnectionString()
-        {
-            var connectionString = new MySqlConnectionStringBuilder()
-            {
-                SslMode = MySqlSslMode.None,
-                Server = "/cloudsql/testcloudrun-372814:us-central1:disersoft", // e.g. '/cloudsql/project:region:instance'
-                UserID = "testuser",   // e.g. 'my-db-user
-                Password = "Disersoft1*2040", // e.g. 'my-db-password'
-                Database = "dsfcontrol", // e.g. 'my-database'
-                ConnectionProtocol = MySqlConnectionProtocol.UnixSocket,
-                Pooling = true,
-                ConnectionTimeout = 10,
-                ConnectionLifeTime = 1,
-                MaximumPoolSize = 1
-            };
+        //protected string NewMysqlUnixSocketConnectionString()
+        //{
+        //    var connectionString = new MySqlConnectionStringBuilder()
+        //    {
+        //        SslMode = MySqlSslMode.None,
+        //        Server = "/cloudsql/testcloudrun-372814:us-central1:disersoft", // e.g. '/cloudsql/project:region:instance'
+        //        UserID = "testuser",   // e.g. 'my-db-user
+        //        Password = "Disersoft1*2040", // e.g. 'my-db-password'
+        //        Database = "dsfcontrol", // e.g. 'my-database'
+        //        ConnectionProtocol = MySqlConnectionProtocol.UnixSocket,
+        //        Pooling = true,
+        //        ConnectionTimeout = 10,
+        //        ConnectionLifeTime = 1,
+        //        MaximumPoolSize = 1
+        //    };
             
             
-            return connectionString.ConnectionString;
-        }
+        //    return connectionString.ConnectionString;
+        //}
 
         public Task<bool> Delete(int id)
         {
