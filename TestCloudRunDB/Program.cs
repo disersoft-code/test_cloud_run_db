@@ -23,7 +23,7 @@ builder.Services.AddSingleton(mySQLConfiguration);
 
 builder.Services.AddScoped<IDeviceRepository, DeviceRepository>();
 builder.Services.AddSingleton<ITelegramBotService, TelegramBotService>();
-builder.Services.AddHostedService<TelegramBotHostedService>();
+//builder.Services.AddHostedService<TelegramBotHostedService>();
 
 var app = builder.Build();
 
